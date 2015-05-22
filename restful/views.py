@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.http import HttpResponse
 
 from restful.models import Profile
 from restful.serializers import ProfileSerializer
@@ -43,11 +44,12 @@ def profile_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = ProfileSerializer(task)
+        #return HttpResponse("Hello")
+        serializer = ProfileSerializer(profile)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = ProfileSerializer(task, data=request.DATA)
+        serializer = ProfileSerializer(profile, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
